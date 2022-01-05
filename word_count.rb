@@ -1,18 +1,23 @@
 class Phrase
     attr_reader :str
     def initialize(str)
-        @str = str
+        @str = str.downcase.gsub(/'([\S]+)'/, '\1')
     end
 
-    def count    
-        
-        words = str.split(/[,$||\s]/)
+    def word_count 
+      
+      words = str.split(/[,$:.!!&@$%^&||\s||]/)
       p = words.reject(&:empty?)
-        p.group_by(&:itself).transform_values(&:size)
+      p.group_by(&:itself).transform_values(&:size)
     end
 end
-ph = Phrase.new("one fish two fish red fish blue fish")
-p ph.count
+ph = Phrase.new("First: don't laugh. Then: don't cry.")
+p ph.word_count
+
+
+
+
+
 =begin
 Given a phrase, count the occurrences of each word in that phrase.
 
